@@ -29,6 +29,9 @@
     - name: git
       ansible.builtin.import_tasks: git.yaml
 
+    - name: solana keygen
+      ansible.builtin.import_tasks: keygen.yaml
+
     - name: file setup
       ansible.builtin.import_tasks: file_setup.yaml
       

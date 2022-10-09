@@ -1,8 +1,8 @@
-- name: check key file exists
-  stat:
-    path: "{{ identity_keypair_location }}"
-  register: keyfile
-  failed_when: not keyfile.stat.exists
+#- name: check key file exists
+#  stat:
+#    path: "{{ identity_keypair_location }}"
+#  register: keyfile
+#  failed_when: not keyfile.stat.exists
 
 - name: check disks exist
   become: true
