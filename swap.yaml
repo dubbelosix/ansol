@@ -35,8 +35,14 @@
          dump=0
          state=present
 
+- name: swap check
+  become: true
+  become_user: root
+  shell: swapon -show | grep /mnt/swapfile
+  register: swap_check
+
 - name: Mount swap
   become: true
   become_user: root
   command: "swapon /mnt/swapfile"
-  when: ansible_swaptotal_mb < {{ swap_mb }}
+  when: swap_check.rc != 0
