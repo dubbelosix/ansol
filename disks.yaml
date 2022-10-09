@@ -1,7 +1,8 @@
 - name: check raid already exists
   become: true
   become_user: root
-  shell: fdisk -l | grep 'md0'
+  shell: fdisk -l | grep -e 'md0' -e 'md127'
+  ignore_errors: yes
   register: raid_exists
 
 - name: install mdadm
@@ -21,13 +22,6 @@
     - "{{ raw_disk_list }}"
   ignore_errors: yes
   when: raid_exists.rc == 0
-
-  #- name: format disks
-  #  become: true
-  #  become_user: root
-  #  shell: (echo p; echo d; echo w) | sudo fdisk {{ item }}
-  #  with_items:
-  #    - "{{ raw_disk_list }}"
 
 - name: raid raw disks
   become: true
