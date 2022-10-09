@@ -20,19 +20,13 @@
   with_items:
     - "{{ raw_disk_list }}"
   ignore_errors: yes
-  when: raid_exists.rc == 0
+  when: raid_exists.rc != 0
 
 - name: raid raw disks
   become: true
   become_user: root
   shell: echo y | mdadm --create /dev/md0 --level=0 --raid-devices={{ raw_disk_list|length }} {{ raw_disk_list | join(' ') }}
-  when: raid_exists.rc == 0
-
-- name: format disks with ext4
-  become: true
-  become_user: root
-  shell: mkfs.ext4 /dev/md0
-  when: raid_exists.rc == 0
+  when: raid_exists.rc != 0
 
 - name: get raid device name
   become: true
@@ -47,8 +41,16 @@
   ignore_errors: yes
   register: mount_mnt
 
+- name: format disks with ext4
+  become: true
+  become_user: root
+  shell: mkfs.ext4 /dev/{{ raid_name.stdout }}
+  when: raid_exists.rc == 0 and mount_mnt.rc != 0
+
+
 - name: mount disks
   become: true
   become_user: root
   shell: mount /dev/{{ raid_name.stdout }} /mnt
   when: mount_mnt.rc != 0
+
