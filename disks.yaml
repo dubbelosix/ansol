@@ -1,3 +1,9 @@
+- name: check raid already exists
+  become: true
+  become_user: root
+  shell: fdisk -l | grep 'md0'
+  register: raid_exists
+
 - name: install mdadm
   become: true
   become_user: root
@@ -5,6 +11,7 @@
     update_cache: yes
     pkg:
     - mdadm
+  when: raid_exists.rc == 0
 
 - name: wipe disks
   become: true
@@ -13,6 +20,7 @@
   with_items:
     - "{{ raw_disk_list }}"
   ignore_errors: yes
+  when: raid_exists.rc == 0
 
   #- name: format disks
   #  become: true
@@ -25,13 +33,16 @@
   become: true
   become_user: root
   shell: echo y | mdadm --create /dev/md0 --level=0 --raid-devices={{ raw_disk_list|length }} {{ raw_disk_list | join(' ') }}
+  when: raid_exists.rc == 0
 
 - name: format disks with ext4
   become: true
   become_user: root
   shell: mkfs.ext4 /dev/md0
+  when: raid_exists.rc == 0
 
 - name: mount disks
   become: true
   become_user: root
   shell: mount -o loop /dev/md0 /mnt
+  when: raid_exists.rc == 0
