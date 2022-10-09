@@ -19,6 +19,7 @@
     - git
     - chrony
     - htop
+    - acl
       
 - name: check if cargo is installed
   become: true

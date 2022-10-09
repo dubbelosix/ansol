@@ -1,22 +1,30 @@
-- name: Install a list of packages
+- name: install mdadm
   become: true
   become_user: root
   apt:
     update_cache: yes
     pkg:
-    - mdadm 
+    - mdadm
 
-- name: format disks
+- name: wipe disks
   become: true
   become_user: root
-  shell: (echo p; echo d; echo w) | sudo fdisk {{ item }}
+  shell: sfdisk --delete {{ item }}
   with_items:
     - "{{ raw_disk_list }}"
+  ignore_errors: yes
+
+  #- name: format disks
+  #  become: true
+  #  become_user: root
+  #  shell: (echo p; echo d; echo w) | sudo fdisk {{ item }}
+  #  with_items:
+  #    - "{{ raw_disk_list }}"
 
 - name: raid raw disks
   become: true
   become_user: root
-  shell: mdadm --create /dev/md0 --level=0 --raid-devices={{ raw_disk_list|length }} {{ raw_disk_list | join(' ') }}
+  shell: echo y | mdadm --create /dev/md0 --level=0 --raid-devices={{ raw_disk_list|length }} {{ raw_disk_list | join(' ') }}
 
 - name: format disks with ext4
   become: true
