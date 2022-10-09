@@ -1,0 +1,10 @@
+- name: create solana group
+  group:
+    name: solana
+    state: present
+- name: create solana user
+  user:
+    name: solana
+    create_home: yes
+    groups: solana
+    shell: /bin/bash

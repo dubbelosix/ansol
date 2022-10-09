@@ -1,0 +1,27 @@
+---
+  - name: "playbook runner"
+    hosts: localhost
+    connection: local 
+    tasks:
+
+    - name: create user
+      ansible.builtin.import_tasks: user.yaml
+
+    - name: install dependencies
+      ansible.builtin.import_tasks: deps.yaml
+
+    - name: folders 
+      ansible.builtin.import_tasks: dirs.yaml
+
+    - name: swap
+      ansible.builtin.import_tasks: swap.yaml
+
+    - name: logrotate
+      ansible.builtin.import_tasks: rotate.yaml
+      
+    - name: git
+      ansible.builtin.import_tasks: git.yaml
+
+    - name: file setup
+      ansible.builtin.import_tasks: file_setup.yaml
+      

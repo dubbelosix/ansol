@@ -1,0 +1,36 @@
+- name: mnt folder
+  file:
+    path: /mnt
+    state: directory
+    owner: solana
+    group: solana
+    mode: '0777'
+  become: true
+  become_user: root
+
+- name: solana snapshots
+  file:
+    path: /mnt/solana-snapshots
+    state: directory
+    owner: solana
+    group: solana
+  become: true
+  become_user: root
+
+- name: solana ledger
+  file:
+    path: /mnt/solana-ledger
+    state: directory
+    owner: solana
+    group: solana
+  become: true
+  become_user: root
+
+- name: solana accounts
+  file:
+    path: /mnt/solana-accounts
+    state: directory
+    owner: solana
+    group: solana
+  become: true
+  become_user: root

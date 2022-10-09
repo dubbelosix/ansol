@@ -1,0 +1,26 @@
+- name: create logrotate sol
+  become: true
+  become_user: root
+  file:
+    path: /etc/logrotate.d/sol
+    state: touch
+    mode: '0644'
+    owner: root
+    group: root
+    modification_time: preserve
+    access_time: preserve
+
+- name: logrotate for solana.log
+  become: true
+  become_user: root
+  blockinfile:
+    path: /etc/logrotate.d/sol
+    block: |
+      /mnt/logs/solana-validator.log {
+        rotate 7
+        daily
+        missingok
+        postrotate
+          systemctl kill -s USR1 sol.service
+        endscript
+      }
