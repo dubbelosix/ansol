@@ -1,0 +1,14 @@
+- name: raid raw disks
+  become: true
+  become_user: root
+  shell: mdadm --create /dev/md0 --level=0 --raid-devices={{ raw_disk_list|length }} {{ raw_disk_list | join(' ') }}
+
+- name: format disks with ext4
+  become: true
+  become_user: root
+  shell: mkfs.ext4 /dev/md0
+
+- name: mount disks
+  become: true
+  become_user: root
+  shell: mount -o loop /dev/md0 /mnt

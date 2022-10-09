@@ -4,6 +4,13 @@
     connection: local 
     tasks:
 
+    - name: var check
+      ansible.builtin.import_tasks: var_check.yaml
+
+    - name: setup disks 
+      ansible.builtin.import_tasks: disks.yaml
+      when: setup_disks is defined and (setup_disks | bool)
+
     - name: create user
       ansible.builtin.import_tasks: user.yaml
 
