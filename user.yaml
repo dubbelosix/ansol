@@ -1,8 +1,13 @@
 - name: create solana group
+  become: true
+  become_user: root
   group:
     name: solana
     state: present
+
 - name: create solana user
+  become: true
+  become_user: root
   user:
     name: solana
     create_home: yes
