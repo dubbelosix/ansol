@@ -9,7 +9,7 @@
 
     - name: setup disks 
       ansible.builtin.import_tasks: disks.yaml
-      when: setup_disks is defined and (setup_disks | bool)
+      when: setup_disks|default(false)|bool == true
 
     - name: create user
       ansible.builtin.import_tasks: user.yaml
