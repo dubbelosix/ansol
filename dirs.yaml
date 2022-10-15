@@ -34,3 +34,12 @@
     group: solana
   become: true
   become_user: root
+
+- name: solana logs
+  become: true
+  become_user: root
+  file:
+    path: /mnt/logs
+    state: directory
+    owner: solana
+    group: solana
