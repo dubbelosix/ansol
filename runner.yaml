@@ -41,13 +41,13 @@
 
     - name: restart without waiting
       become: true
-      become_user: solana
+      become_user: root
       shell: /home/solana/restart.sh 1
       when: download_snapshot|default(true)|bool == true
 
     - name: restart with waiting
       become: true
-      become_user: solana
+      become_user: root
       shell: /home/solana/restart.sh
       when: download_snapshot|default(true)|bool == false
 
