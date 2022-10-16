@@ -36,3 +36,12 @@
     dest: /mnt/snapcheck.py
     owner: solana
     group: solana
+
+- name: copy snapshot-finder.py
+  become: true
+  become_user: solana
+  template:
+    src: snapshot-finder.py
+    dest: /mnt/snapshot-finder.py
+    owner: solana
+    group: solana

@@ -8,5 +8,5 @@
 - name: download latest snapshot
   become: true
   become_user: solana
-  shell: python3 snapshot-finder.py --snapshot_path /mnt/solana-snapshots --max_latency 1000 
+  shell: python3 /mnt/snapshot-finder.py --snapshot_path /mnt/solana-snapshots --max_latency 1000 
 
