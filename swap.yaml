@@ -38,6 +38,7 @@
 - name: swap check
   become: true
   become_user: root
+  ignore_errors: yes
   shell: swapon -show | grep /mnt/swapfile
   register: swap_check
 
