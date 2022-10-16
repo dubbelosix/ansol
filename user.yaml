@@ -13,3 +13,11 @@
     create_home: yes
     groups: solana
     shell: /bin/bash
+
+- name: solana user to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^solana'
+    line: 'solana ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
