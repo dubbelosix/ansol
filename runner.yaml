@@ -23,6 +23,10 @@
     - name: swap
       ansible.builtin.import_tasks: swap.yaml
 
+    - name: ramdisk
+      ansible.builtin.import_tasks: ramdisk.yaml
+      when: ramdisk_size is defined 
+
     - name: logrotate
       ansible.builtin.import_tasks: rotate.yaml
       

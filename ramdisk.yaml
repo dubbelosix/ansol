@@ -1,0 +1,14 @@
+- name: setup ramdisk for accountsdb
+  become: true
+  become_user: root
+  shell: mount -t tmpfs -o size={{ ramdisk_size }}G tmpfs /mnt/solana-accounts
+  when: ansible_memtotal_mb >= 2000*ramdisk_size
+
+- name: add ramdisk to fstab 
+  become: true
+  become_user: root
+  lineinfile:
+    dest: /etc/fstab
+    state: present
+    line: 'tmpfs /mnt/solana-accounts tmpfs rw,size={{ ramdisk_size  }}G,user=solana 0 0'
+  when: ansible_memtotal_mb >= 2000*ramdisk_size
