@@ -1,4 +1,6 @@
 - name: install snapshot requirements
+  become: true
+  become_user: solana
   ansible.builtin.pip:
     name:
       - tqdm 
