@@ -45,8 +45,7 @@
   become: true
   become_user: root
   shell: mkfs.ext4 /dev/{{ raid_name.stdout }}
-  when: raid_exists.rc == 0 and mount_mnt.rc != 0
-
+  when: raid_name.rc == 0 and mount_mnt.rc != 0
 
 - name: mount disks
   become: true
