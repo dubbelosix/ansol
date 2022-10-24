@@ -16,26 +16,27 @@
  * 512 GB ram if you want to use ramdisk/tmpfs and store the accounts db in RAM (we use 300 GB for ram disk). without tmpfs, the ram requirement can be significantly lower. ~256 GB
  * 3-4 TB (multiple disks is ok i.e. 2x 1.9TB because the ansible playbook stripes them together)
 
-### step 1: install ansible
-```
-sudo apt-get install ansible -y
-```
+### step 1: ssh into your machine
 
-### step 2: ssh into your machine
 
-### step 3: clone the ansible repository
-```
-git clone https://github.com/dubbelosix/ansol.git
-```
-
-### step 4: start a screen session
+### step 2: start a screen session
 ```
 screen -S sol
 ```
 
+### step 3:  install ansible
+```
+sudo apt-get install ansible -y
+```
+
+### step 4: clone the anssol repository
+```
+git clone https://github.com/dubbelosix/ansol.git
+```
+
 ### step 5: cd into the ansol folder
 ```
-cd ~/ansol
+cd ansol
 ```
 
 ### step 6: run the ansible command
