@@ -12,8 +12,8 @@
 * all the above are satisfied by a fresh latitude launch
 
 * Specs
- * > 24 cores
- * 512 GB ram if you want to use ramdisk/tmpfs and store the accounts db in RAM
+ * 24 cores or more
+ * 512 GB ram if you want to use ramdisk/tmpfs and store the accounts db in RAM (we use 300 GB for ram disk). without tmpfs, the ram requirement can be significantly lower. ~256 GB
  * 3-4 TB (multiple disks is ok i.e. 2x 1.9TB because the ansible playbook stripes them together)
 
 ### step 1: install ansible
