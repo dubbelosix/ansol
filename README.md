@@ -63,5 +63,19 @@ sudo su - solana
 ### step 8: and check the validator status with
 ```
 /mnt/solana/target/release/solana-validator --ledger /mnt/solana-ledger monitor
+ledger monitor
+Ledger location: /mnt/solana-ledger
+⠉ Validator startup: SearchingForRpcService...
 ```
+
+### Initially the monitor should just show. this will last for a few minutes and is normal 
+```
+⠉ Validator startup: SearchingForRpcService...
+```
+### after a while, the message at the terminal should change to
+```
+⠐ 00:08:26 | Processed Slot: 156831951 | Confirmed Slot: 156831951 | Finalized Slot: 156831917 | Full Snapshot Slot: 156813730 |
+```
+
+If you see the message above, then everything is working fine! Gratz. you have a new RPC server and you can visit the URL at http://xx.xx.xx.xx:8899/
 
