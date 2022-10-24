@@ -1,6 +1,20 @@
 # ansol
 
-### this process works best on latitude machines with ubuntu installed (preferable ubuntu 20.04, 22.04)
+### machine setting
+* this process works best on latitude machines 
+  * because the initial state of the machine is cleaner
+  * disks are named consistently (nvme01, nvme0n2)
+  * ubuntu installed (preferably ubuntu 20.04, 22.04) - this won't work with centos etc since they don't use aptitude by default
+  * the login user being ubuntu helps (all the solana operations are done using the solana user that the ansible playbook creates)
+  * ubuntu should be in the sudoers list
+  * clean unmounted disks. if your root is on one of partitions and you pass it as an argument, this could potentially be disastrous.
+
+* all the above are satisfied by a fresh latitude launch
+
+* Specs
+ * > 24 cores
+ * 512 GB ram if you want to use ramdisk/tmpfs and store the accounts db in RAM
+ * 3-4 TB (multiple disks is ok i.e. 2x 1.9TB because the ansible playbook stripes them together)
 
 ### step 1: install ansible
 ```
