@@ -1,11 +1,30 @@
 # ansol
 
-### install ansible
+### this process works best on latitude machines with ubuntu installed (preferable ubuntu 20.04, 22.04)
+
+### step 1: install ansible
 ```
 sudo apt-get install ansible -y
 ```
 
-### ansible command
+### step 2: ssh into your machine
+
+### step 3: clone the ansible repository
+```
+git clone https://github.com/dubbelosix/ansol.git
+```
+
+### step 4: start a screen session
+```
+screen -S sol
+```
+
+### step 5: cd into the ansol folder
+```
+cd ~/ansol
+```
+
+### step 6: run the ansible command
 * this command can take between 10-20 minutes based on the specs of the machine
 * it takes long because it does everything necessary to start the validator (format disks, checkout the solana repo and build, download the latest snapshot etc)
 ```
@@ -18,12 +37,12 @@ time ansible-playbook runner.yaml --extra-vars='{"solana_version": "v1.13.4", "s
 * raw_disk_list: the list of currently unmounted disks that will be wiped, raided, formatted with ext4 and then mounted to /mnt
 * ramdisk_size: this is optional and only necessary if you want to use ramdisk for the validator - carves out a large portion of the RAM to store the accountsdb. On a 512 GB RAM instance, this can be set to 300 GB (variable value is in GB so 300)
 
-### after ansible finishes
+### step 7: after ansible finishes
 switch to the solana user with
 ```
 sudo su - solana
 ```
-and check the validator status with
+### step 8: and check the validator status with
 ```
 /mnt/solana/target/release/solana-validator --ledger /mnt/solana-ledger monitor
 ```
