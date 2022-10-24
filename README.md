@@ -15,9 +15,9 @@
 * recommend the s3.large.x86 - it is one of the most performant nodes for staying at tip
 
 * Specs
- * 24 cores or more
- * 512 GB ram if you want to use ramdisk/tmpfs and store the accounts db in RAM (we use 300 GB for ram disk). without tmpfs, the ram requirement can be significantly lower. ~256 GB
- * 3-4 TB (multiple disks is ok i.e. 2x 1.9TB because the ansible playbook stripes them together)
+  * 24 cores or more
+  * 512 GB ram if you want to use ramdisk/tmpfs and store the accounts db in RAM (we use 300 GB for ram disk). without tmpfs, the ram requirement can be significantly lower. ~256 GB
+  * 3-4 TB (multiple disks is ok i.e. 2x 1.9TB because the ansible playbook stripes them together)
 
 ### step 1: ssh into your machine
 
