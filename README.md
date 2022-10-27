@@ -9,7 +9,7 @@
   * ubuntu is in the sudoer's list
   * unmounted disks are clean - if your root is on one of partitions and you pass it as an argument, this could be disastrous.
 
-* all the above are satisfied by a fresh s3.large.x86 launch here https://www.latitude.sh/pricing
+* All the above are satisfied by a fresh s3.large.x86 launch here https://www.latitude.sh/pricing
 * Zen3 AMD Epyc’s such as the 7443p are considered some of the most performant nodes for keeping up with the tip of the chain at the moment, and support large amounts of RAM.
 
 * Recommended RPC Specs
