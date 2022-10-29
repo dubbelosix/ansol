@@ -11,4 +11,3 @@
   with_items:
     - "{{ raw_disk_list }}"
   when: setup_disks is defined and (setup_disks | bool)
-
