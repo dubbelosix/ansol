@@ -43,6 +43,7 @@ cd autoclock-rpc
 ### Step 6: Run the ansible command
 * this command can take between 10-20 minutes based on the specs of the machine
 * it takes long because it does everything necessary to start the validator (format disks, checkout the solana repo and build it, download the latest snapshot, etc.)
+* make sure that the solana_version is up to date (see below)
 ```
 time ansible-playbook runner.yaml --extra-vars='{"solana_version": "v1.13.4", "swap_mb":100000,"raw_disk_list":["/dev/nvme0n1","/dev/nvme1n1"],"setup_disks":true,"download_snapshot":true,"ramdisk_size":300}'
 ```
