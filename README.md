@@ -70,7 +70,7 @@ Ledger location: /mnt/solana-ledger
 ```
 ⠉ Validator startup: SearchingForRpcService...
 ```
-#### After a while, the message at the terminal should change to:
+#### After a while, the message at the terminal should change to something like this:
 ```
 ⠐ 00:08:26 | Processed Slot: 156831951 | Confirmed Slot: 156831951 | Finalized Slot: 156831917 | Full Snapshot Slot: 156813730 |
 ```
