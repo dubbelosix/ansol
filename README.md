@@ -18,7 +18,7 @@
   * 3-4 TB (multiple disks is okay i.e. 2x 1.9TB because the ansible playbook stripes them together)
 
 ### Step 1: SSH into your machine
-
+ 
 
 ### Step 2: Start a screen session
 ```
