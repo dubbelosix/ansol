@@ -1,7 +1,7 @@
 # Autoclock RPC
 
 ### What is it good for?
-*The goal of the Autoclock RPC ansible playbook is to have you caught up with the Solana blockchain within 15 minutes, once you have a capable server and your SSH key ready. It formats/raids/mounts disks, sets up swap, ramdisk (optional), downloads from snapshot and restarts everything. It is currently configured for a Latitude.sh s3.large.x86 (see "Optimal Machine Settings" below), but we hope to adapt it more widely later on. For an in depth guide on possible RPC configurations once your RPC is good to go, refer to https://github.com/rpcpool/solana-rpc-ansible
+The goal of the Autoclock RPC ansible playbook is to have you caught up with the Solana blockchain within 15 minutes, once you have a capable server and your SSH key ready. It formats/raids/mounts disks, sets up swap, ramdisk (optional), downloads from snapshot and restarts everything. It is currently configured for a Latitude.sh s3.large.x86 (see "Optimal Machine Settings" below), but we hope to adapt it more widely later on. For an in depth guide on possible RPC configurations once your RPC is good to go, refer to https://github.com/rpcpool/solana-rpc-ansible
 
 ### Optimal Machine Settings
 * Our Latitude.sh s3.large.x86 server starts with the settings below, which we prefer because:
