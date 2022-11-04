@@ -28,6 +28,7 @@ parser.add_argument('--min_download_speed', default=60, type=int, help='Minimum 
 parser.add_argument('--max_download_speed', type=int, 
 help='Maximum snapshot download speed in megabytes - https://github.com/c29r3/solana-snapshot-finder/issues/11. Example: --max_download_speed 192')
 parser.add_argument('--max_latency', default=40, type=int, help='The maximum value of latency (milliseconds). If latency > max_latency --> skip')
+parser.add_argument('--version', type=str, help='version of the snapshot required')
 parser.add_argument('--with_private_rpc', action="store_true", help='Enable adding and checking RPCs with the --private-rpc option.This slow down checking and searching but potentially increases'
                     ' the number of RPCs from which snapshots can be downloaded.')
 parser.add_argument('--measurement_time', default=7, type=int, help='Time in seconds during which the script will measure the download speed')
@@ -51,6 +52,7 @@ MIN_DOWNLOAD_SPEED_MB = args.min_download_speed
 MAX_DOWNLOAD_SPEED_MB = args.max_download_speed
 SPEED_MEASURE_TIME_SEC = args.measurement_time
 MAX_LATENCY = args.max_latency
+VERSION = args.version
 SNAPSHOT_PATH = args.snapshot_path if args.snapshot_path[-1] != '/' else args.snapshot_path[:-1]
 NUM_OF_MAX_ATTEMPTS = args.num_of_retries
 SLEEP_BEFORE_RETRY = args.sleep
@@ -105,6 +107,17 @@ def convert_size(size_bytes):
    s = round(size_bytes / p, 2)
    return "%s %s" % (s, size_name[i])
 
+
+def version_check(url: str, version: str) -> bool:
+    data = {"jsonrpc":"2.0","id":1, "method":"getVersion"}
+    headers = {"Content-Type": "application/json"}
+    res = requests.post("http://%s"%url, json=data)
+    parsed_res = json.loads(res.text)
+    rpc_ver = parsed_res["result"]["solana-core"]
+    logger.info("version: %s"%rpc_ver)
+    if rpc_ver != version:
+        return False
+    return True
 
 def measure_speed(url: str, measure_time: int) -> float:
     logging.debug('measure_speed()')
@@ -379,6 +392,7 @@ def main_worker():
         rpc_nodes_inc_sorted = []
         logger.info("TRYING TO DOWNLOADING FILES")
         for i, rpc_node in enumerate(json_data["rpc_nodes"], start=1):
+            logger.info("checking node: %s %s"%(i,rpc_node))
             # filter blacklisted snapshots
             if BLACKLIST != ['']:
                 if any(i in str(rpc_node["files_to_download"]) for i in BLACKLIST):
@@ -390,6 +404,16 @@ def main_worker():
                 logger.info(f'Rpc node already in unsuitable list --> skip {rpc_node["snapshot_address"]}')
                 continue
 
+            logger.info("checking version")
+            try:
+                if not version_check(rpc_node["snapshot_address"], VERSION):
+                    logger.info("version check failed")
+                    continue
+            except:
+                import traceback
+                print(traceback.format_exc())
+                print("broken")
+            logger.info("version check succeeded")
             down_speed_bytes = measure_speed(url=rpc_node["snapshot_address"], measure_time=SPEED_MEASURE_TIME_SEC)
             down_speed_mb = convert_size(down_speed_bytes)
             if down_speed_bytes < MIN_DOWNLOAD_SPEED_MB * 1e6:
