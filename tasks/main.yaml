@@ -1,0 +1,52 @@
+---
+# tasks file for Solana RPC
+- name: var check
+  include_tasks: var_check.yaml
+
+- name: setup disks
+  include_tasks: disks.yaml
+  when: setup_disks|default(false)|bool == true
+
+- name: create user
+  include_tasks: user.yaml
+
+- name: install dependencies
+  include_tasks: deps.yaml
+
+- name: folders
+  include_tasks: dirs.yaml
+
+- name: swap
+  include_tasks: swap.yaml
+
+- name: ramdisk
+  include_tasks: ramdisk.yaml
+  when: ramdisk_size is defined
+
+- name: logrotate
+  include_tasks: rotate.yaml
+
+- name: git
+  include_tasks: git.yaml
+
+- name: solana keygen
+  include_tasks: keygen.yaml
+
+- name: file setup
+  include_tasks: file_setup.yaml
+
+- name: snapshot download
+  include_tasks: snapshot_downloader.yaml
+  when: download_snapshot|default(true)|bool == true
+
+- name: restart without waiting
+  become: true
+  become_user: root
+  shell: /home/solana/restart.sh 1
+  when: download_snapshot|default(true)|bool == true
+
+- name: restart with waiting
+  become: true
+  become_user: root
+  shell: /home/solana/restart.sh
+  when: download_snapshot|default(true)|bool == false
