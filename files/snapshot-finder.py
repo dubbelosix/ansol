@@ -119,7 +119,6 @@ def version_check(url: str, version: str) -> bool:
         return False
     return True
 
-
 def measure_speed(url: str, measure_time: int) -> float:
     logging.debug('measure_speed()')
     url = f'http://{url}/snapshot.tar.bz2'
@@ -404,7 +403,6 @@ def main_worker():
             if rpc_node["snapshot_address"] in unsuitable_servers:
                 logger.info(f'Rpc node already in unsuitable list --> skip {rpc_node["snapshot_address"]}')
                 continue
-                
             logger.info("checking version")
             try:
                 if not version_check(rpc_node["snapshot_address"], VERSION):
@@ -414,7 +412,7 @@ def main_worker():
                 import traceback
                 print(traceback.format_exc())
                 print("broken")
-            logger.info("version check succeeded")       
+            logger.info("version check succeeded")
             down_speed_bytes = measure_speed(url=rpc_node["snapshot_address"], measure_time=SPEED_MEASURE_TIME_SEC)
             down_speed_mb = convert_size(down_speed_bytes)
             if down_speed_bytes < MIN_DOWNLOAD_SPEED_MB * 1e6:
