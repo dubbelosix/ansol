@@ -1,2 +1,35 @@
 #!/bin/bash
-/mnt/solana/target/release/solana-validator --identity /home/solana/rpc_node.json --rpc-port 8899 --full-rpc-api --entrypoint entrypoint.mainnet-beta.solana.com:8001 --limit-ledger-size --log /mnt/logs/solana-validator.log --accounts /mnt/solana-accounts --ledger /mnt/solana-ledger --snapshots /mnt/solana-snapshots --no-snapshot-fetch 
+PATH=/home/solana/.local/share/solana/install/active_release/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+# export RUST_BACKTRACE=1
+# export RUST_LOG=error
+
+# Start solana rpc node, intended to be used with journalctl/systemctl. Logs will go to journalctl.
+exec solana-validator \
+  --identity /home/solana/rpc_node.json \
+    --entrypoint entrypoint.mainnet-beta.solana.com:8001 \
+    --entrypoint entrypoint2.mainnet-beta.solana.com:8001 \
+    --entrypoint entrypoint3.mainnet-beta.solana.com:8001 \
+    --entrypoint entrypoint4.mainnet-beta.solana.com:8001 \
+    --entrypoint entrypoint5.mainnet-beta.solana.com:8001 \
+  --accounts /mnt/solana-accounts \
+  --ledger /mnt/solana-ledger \
+  --snapshots /mnt/solana-snapshots \
+  --log /mnt/logs/solana-validator.log \
+  --gossip-port 8001 \
+  --rpc-port 8899 \
+  --rpc-bind-address 0.0.0.0 \
+  --dynamic-port-range 8002-8099 \
+  --wal-recovery-mode skip_any_corrupted_record \
+  --limit-ledger-size 50000000  \
+  --private-rpc \
+  --no-snapshot-fetch \
+  --no-port-check \
+  --no-voting \
+  --full-rpc-api \
+  --tpu-use-quic \
+  --enable-cpi-and-log-storage \
+  --enable-rpc-transaction-history \
+  --account-index program-id spl-token-mint spl-token-owner \
+  --accounts-index-memory-limit-mb 800000 \
+  --account-index-exclude-key TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA \
+  --account-index-exclude-key kinXdEcpDQeHPEuQnqmUgtYykqKGVFq6CeVX5iAHJq6

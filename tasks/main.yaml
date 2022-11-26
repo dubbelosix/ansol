@@ -28,12 +28,16 @@
 
 - name: git
   include_tasks: git.yaml
+  when: solana_installer|default(false)|bool == false
 
 - name: solana keygen
   include_tasks: keygen.yaml
 
 - name: file setup
   include_tasks: file_setup.yaml
+
+- name: tune host
+  include_tasks: tuner.yaml
 
 - name: snapshot download
   include_tasks: snapshot_downloader.yaml

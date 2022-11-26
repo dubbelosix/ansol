@@ -1,8 +1,10 @@
 ---
 # defaults file for Solana RPC
-solana_version: "v1.13.4"
-raw_disk_list: "/dev/nvme0n1","/dev/nvme1n1"
-setup_disks: "true"
+solana_version: "1.13.5"
+raw_disk_list: ["/dev/nvme0n1", "/dev/nvme1n1"]
+# setup_disks: "true"
+setup_disks: "false"
 download_snapshot: "true"
-ramdisk_size: "300"
+# ramdisk_size: "300"
 swap_mb: "100000"
+solana_installer: "true"
