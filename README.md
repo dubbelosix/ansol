@@ -54,11 +54,10 @@ cd autoclock-rpc
 - this command can take between 10-20 minutes based on the specs of the machine
 - it takes long because it does everything necessary to start the validator (format disks, checkout the solana repo and build it, download the latest snapshot, etc.)
 - make sure that the solana_version is up to date (see below)
-- you should create a playbook file, you can look at `test_runner.yaml` for inspiration
 - check the values set in `defaults/main.yml` and update to the values you want
 
 ```
-time ansible-playbook <you-runner-file.yaml>
+time ansible-playbook runner.yaml
 ```
 
 #### ~ Parameters explained ~
