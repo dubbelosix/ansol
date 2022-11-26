@@ -31,9 +31,10 @@
 - name: install solana
   become: true
   become_user: solana
-  shell: sh -c "$(curl -sSfL https://release.solana.com/{{ solana_version }}/install)"
+  shell: sh -c "$(curl -sSfL https://release.solana.com/v{{ solana_version }}/install)"
   args:
     chdir: /home/solana
+  when: solana_installer|default(true)|bool == true
 
 - name: add solana deps to path
   become: true
@@ -41,3 +42,4 @@
   shell: export PATH="/home/solana/.local/share/solana/install/active_release/bin:$PATH"
   args:
     executable: /bin/bash
+  when: solana_installer|default(true)|bool == true
