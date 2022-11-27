@@ -4,7 +4,7 @@
   apt:
     update_cache: yes
     pkg:
-    - mdadm
+      - mdadm
 
 - name: check raid already exists
   become: true
@@ -50,6 +50,5 @@
 - name: mount disks
   become: true
   become_user: root
-  shell: mount /dev/{{ raid_name.stdout }} /mnt
+  shell: mount /dev/{{ raid_name.stdout }} {{ base_path }}
   when: mount_mnt.rc != 0
-

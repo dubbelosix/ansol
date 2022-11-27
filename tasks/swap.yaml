@@ -1,49 +1,50 @@
 - name: Create swap file
   become: true
   become_user: root
-  command: dd if=/dev/zero of=/mnt/swapfile bs=1024 count={{ swap_mb }}k
-           creates="/mnt/swapfile"
+  command:
+    dd if=/dev/zero of={{ base_path }}/swapfile bs=1024 count={{ swap_mb }}k
+    creates="{{ base_path }}/swapfile"
 
 - name: Change swap file permissions
   become: true
   become_user: root
-  file: path="/mnt/swapfile"
-        owner=root
-        group=root
-        mode=0600
+  file: path="{{ base_path }}/swapfile"
+    owner=root
+    group=root
+    mode=0600
 
 - name: Check swap file type
   become: true
   become_user: root
-  command: file /mnt/swapfile
+  command: file {{ base_path }}/swapfile
   register: swapfile
 
 - name: Make swap file
   become: true
   become_user: root
-  command: "sudo mkswap /mnt/swapfile"
+  command: "sudo mkswap {{ base_path }}/swapfile"
   when: swapfile.stdout.find('swap file') == -1
 
 - name: Write swap entry in fstab
   become: true
   become_user: root
   mount: name=none
-         src=/mnt/swapfile
-         fstype=swap
-         opts=sw
-         passno=0
-         dump=0
-         state=present
+    src={{ base_path }}/swapfile
+    fstype=swap
+    opts=sw
+    passno=0
+    dump=0
+    state=present
 
 - name: swap check
   become: true
   become_user: root
   ignore_errors: yes
-  shell: swapon -show | grep /mnt/swapfile
+  shell: swapon -show | grep {{ base_path }}/swapfile
   register: swap_check
 
 - name: Mount swap
   become: true
   become_user: root
-  command: "swapon /mnt/swapfile"
+  command: "swapon {{ base_path }}/swapfile"
   when: swap_check.rc != 0
