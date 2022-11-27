@@ -7,3 +7,4 @@ download_snapshot: "true"
 # ramdisk_size: "300"
 swap_mb: "100000"
 solana_installer: "true"
+base_path: /mnt

@@ -33,7 +33,7 @@
   become_user: solana
   template:
     src: snapcheck.py
-    dest: /mnt/snapcheck.py
+    dest: "{{ base_path }}/snapcheck.py"
     owner: solana
     group: solana
 
@@ -42,6 +42,6 @@
   become_user: solana
   template:
     src: snapshot-finder.py
-    dest: /mnt/snapshot-finder.py
+    dest: "{{ base_path }}/snapshot-finder.py"
     owner: solana
     group: solana

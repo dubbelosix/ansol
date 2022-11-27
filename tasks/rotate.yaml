@@ -4,7 +4,7 @@
   file:
     path: /etc/logrotate.d/sol
     state: touch
-    mode: '0644'
+    mode: "0644"
     owner: root
     group: root
     modification_time: preserve
@@ -16,7 +16,7 @@
   blockinfile:
     path: /etc/logrotate.d/sol
     block: |
-      /mnt/logs/solana-validator.log {
+      {{ base_path }}/logs/solana-validator.log {
         rotate 7
         daily
         missingok

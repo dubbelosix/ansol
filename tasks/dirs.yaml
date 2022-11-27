@@ -1,6 +1,6 @@
 - name: mnt folder
   file:
-    path: /mnt
+    path: "{{ base_path }}"
     state: directory
     owner: solana
     group: solana
@@ -10,7 +10,7 @@
 
 - name: solana snapshots
   file:
-    path: /mnt/solana-snapshots
+    path: "{{ base_path }}/solana-snapshots"
     state: directory
     owner: solana
     group: solana
@@ -19,7 +19,7 @@
 
 - name: solana ledger
   file:
-    path: /mnt/solana-ledger
+    path: "{{ base_path }}/solana-ledger"
     state: directory
     owner: solana
     group: solana
@@ -28,7 +28,7 @@
 
 - name: solana accounts
   file:
-    path: /mnt/solana-accounts
+    path: "{{ base_path }}/solana-accounts"
     state: directory
     owner: solana
     group: solana
@@ -39,7 +39,7 @@
   become: true
   become_user: root
   file:
-    path: /mnt/logs
+    path: "{{ base_path }}/logs"
     state: directory
     owner: solana
     group: solana
