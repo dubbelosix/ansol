@@ -4,7 +4,7 @@
     state: directory
     owner: solana
     group: solana
-    mode: '0777'
+    mode: "0777"
   become: true
   become_user: root
 

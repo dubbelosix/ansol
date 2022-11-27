@@ -3,7 +3,7 @@ import threading
 import json
 import time
 
-GENESYSGO = "https://ssc-dao.genesysgo.net/"
+MAINNET = "https://api.mainnet-beta.solana.com"
 LOCAL = "http://localhost:8899"
 PAYLOAD = {"jsonrpc":"2.0","id":1, "method":"getSlot", "params":[{"commitment":"processed"}]}
 
@@ -22,7 +22,7 @@ if __name__ == "__main__":
         tlist = []
         reqlist = []
         resultlist = [0,0]
-        for c,u in enumerate([LOCAL, GENESYSGO]):
+        for c,u in enumerate([LOCAL, MAINNET]):
             req = urllib.request.Request(u)
             req.add_header('Content-Type', 'application/json; charset=utf-8')
             req.add_header('Content-Length', content_len)

@@ -6,7 +6,7 @@
     dest: /home/solana/validator.sh
     owner: solana
     group: solana
-    mode: '0755'
+    mode: "0755"
 
 - name: setup sol.service
   become: true
@@ -16,17 +16,17 @@
     dest: /etc/systemd/system/sol.service
     owner: root
     group: root
-    mode: '0755'
+    mode: "0755"
 
 - name: copy restart.sh
   become: true
   become_user: solana
   template:
-    src: restart.sh 
+    src: restart.sh
     dest: /home/solana/restart.sh
     owner: solana
     group: solana
-    mode: '0755'
+    mode: "0755"
 
 - name: copy snapcheck.py
   become: true
