@@ -52,7 +52,7 @@ MIN_DOWNLOAD_SPEED_MB = args.min_download_speed
 MAX_DOWNLOAD_SPEED_MB = args.max_download_speed
 SPEED_MEASURE_TIME_SEC = args.measurement_time
 MAX_LATENCY = args.max_latency
-VERSION = args.version
+#VERSION = args.version
 SNAPSHOT_PATH = args.snapshot_path if args.snapshot_path[-1] != '/' else args.snapshot_path[:-1]
 NUM_OF_MAX_ATTEMPTS = args.num_of_retries
 SLEEP_BEFORE_RETRY = args.sleep
@@ -404,16 +404,16 @@ def main_worker():
                 logger.info(f'Rpc node already in unsuitable list --> skip {rpc_node["snapshot_address"]}')
                 continue
 
-            logger.info("checking version")
-            try:
-                if not version_check(rpc_node["snapshot_address"], VERSION):
-                    logger.info("version check failed")
-                    continue
-            except:
-                import traceback
-                print(traceback.format_exc())
-                print("broken")
-            logger.info("version check succeeded")
+#            logger.info("checking version")
+#            try:
+#                if not version_check(rpc_node["snapshot_address"], VERSION):
+#                    logger.info("version check failed")
+#                    continue
+#            except:
+#                import traceback
+#                print(traceback.format_exc())
+#                print("broken")
+#            logger.info("version check succeeded")
             down_speed_bytes = measure_speed(url=rpc_node["snapshot_address"], measure_time=SPEED_MEASURE_TIME_SEC)
             down_speed_mb = convert_size(down_speed_bytes)
             if down_speed_bytes < MIN_DOWNLOAD_SPEED_MB * 1e6:

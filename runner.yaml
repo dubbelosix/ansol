@@ -17,6 +17,9 @@
     - name: install dependencies
       ansible.builtin.import_tasks: deps.yaml
 
+    - name: tuning
+      ansible.builtin.import_tasks: tuner.yaml
+
     - name: folders 
       ansible.builtin.import_tasks: dirs.yaml
 
