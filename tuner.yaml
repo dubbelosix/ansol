@@ -54,6 +54,6 @@
   become_user: root
   shell: |
     echo 'GOVERNOR="performance"' | tee /etc/default/cpufrequtils
-    systemctl disable ondemand
+    echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
   args:
     executable: /bin/bash
