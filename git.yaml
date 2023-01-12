@@ -9,7 +9,7 @@
 - name: build solana
   become: true
   become_user: solana
-  shell: source /home/solana/.cargo/env && cd /mnt/solana/cargo build --release
+  shell: source /home/solana/.cargo/env && /mnt/solana/cargo build --release
   args:
     chdir: /mnt/solana
     executable: /bin/bash
