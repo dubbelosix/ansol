@@ -27,6 +27,16 @@
     owner: solana
     group: solana
     mode: "0755"
+    
+- name: copy restart.sh
+  become: true
+  become_user: solana
+  copy:
+    src: download_restart.sh
+    dest: /home/solana/download_restart.sh
+    owner: solana
+    group: solana
+    mode: "0755"
 
 - name: copy snapcheck.py
   become: true
