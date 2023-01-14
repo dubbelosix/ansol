@@ -34,7 +34,7 @@ screen -S sol
 ### Step 3: Install ansible
 
 ```
-sudo apt-get install ansible -y
+sudo apt-get update && sudo apt-get install ansible -y
 ```
 
 ### Step 4: Clone the autoclock-rpc repository
