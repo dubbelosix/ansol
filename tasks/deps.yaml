@@ -4,42 +4,49 @@
   apt:
     update_cache: yes
     pkg:
-      - build-essential
-      - pkg-config
-      - libudev-dev
-      - cmake
-      - libclang-dev
-      - libssl-dev
-      - gparted
-      - nload
-      - python3-pip
-      - net-tools
-      - logind
-      - curl
-      - git
-      - chrony
-      - htop
-      - acl
-      - cpufrequtils
-
-- name: Upgrade packages
-  become: true
-  become_user: root
-  apt:
-    upgrade: dist
-
-- name: install solana
+    - build-essential
+    - pkg-config
+    - libudev-dev
+    - cmake
+    - libclang-dev
+    - libssl-dev
+    - gparted
+    - nload
+    - python3-pip
+    - net-tools
+    - logind
+    - curl
+    - git
+    - chrony
+    - htop
+    - acl
+      
+- name: check if cargo is installed
   become: true
   become_user: solana
-  shell: sh -c "$(curl -sSfL https://release.solana.com/v{{ solana_version }}/install)"
-  args:
-    chdir: /home/solana
-  when: solana_installer|default(true)|bool == true
-
-- name: add solana deps to path
-  become: true
-  become_user: solana
-  shell: export PATH="/home/solana/.local/share/solana/install/active_release/bin:$PATH"
+  become_method: sudo
+  shell: test -f /home/solana/.cargo/env && source /home/solana/.cargo/env && command -v cargo
   args:
     executable: /bin/bash
-  when: solana_installer|default(true)|bool == true
+  register: cargo_exists
+  ignore_errors: yes
+
+- name: Download Installer
+  when: cargo_exists is failed
+  become: true
+  become_user: solana
+  become_method: sudo
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: '0755'
+    force: 'yes'
+
+- name: install rust/cargo
+  become: true
+  become_user: solana
+  become_method: sudo
+  when: cargo_exists is failed
+  shell: /tmp/sh.rustup.rs -y
+  args:
+    executable: /bin/bash
