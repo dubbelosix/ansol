@@ -52,3 +52,17 @@
   become_user: root
   shell: mount /dev/{{ raid_name.stdout }} /mnt
   when: mount_mnt.rc != 0
+  
+- name: extract raid params
+  shell: sudo blkid | grep md | grep -oh \".*\" | sed -e 's/"//g' | awk '{print "UUID="$1" /mnt ext4 defaults 1 1"}'
+  register: raid_config
+  
+- name: add raid to fstab
+  become: true
+  become_user: root
+  lineinfile:
+    dest: /etc/fstab
+    state: present
+    line: "{{ raid_config.stdout_lines[0] }}"
+    insertbefore: 'mnt'
+    firstmatch: yes

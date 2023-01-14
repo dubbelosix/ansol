@@ -37,11 +37,30 @@
     owner: solana
     group: solana
 
-- name: copy snapshot-finder.py
+- name: copy snapcheck.py
+  become: true
+  become_user: solana
+  copy:
+    src: snapcheck.py
+    dest: /mnt/snapcheck.py
+    owner: solana
+    group: solana
+
+- name: copy montip.py
   become: true
   become_user: solana
   template:
-    src: snapshot-finder.py
-    dest: /mnt/snapshot-finder.py
+    src: montip.py
+    dest: /mnt/montip.py
     owner: solana
     group: solana
+
+- name: solana profile
+  become: true
+  become_user: root
+  copy:
+    src: zsolpath.sh
+    dest: /etc/profile.d/zsolpath.sh
+    owner: root
+    group: root
+    mode: "0755"

@@ -23,3 +23,10 @@
     regexp: '^solana'
     line: 'solana ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
+
+- name: Ensure solana build is in path for solana user
+  become: true
+  become_user: root
+  lineinfile:
+    path: /home/solana/.bashrc
+    line: 'export PATH=/mnt/solana/target/release:$PATH'
