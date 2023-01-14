@@ -9,7 +9,7 @@
 - name: check raid already exists
   become: true
   become_user: root
-  shell: fdisk -l | grep -e 'md0' -e 'md127'
+  shell: fdisk -l | grep -e 'md'
   ignore_errors: yes
   register: raid_exists
 
@@ -50,5 +50,5 @@
 - name: mount disks
   become: true
   become_user: root
-  shell: mount /dev/{{ raid_name.stdout }} {{ base_path }}
+  shell: mount /dev/{{ raid_name.stdout }} /mnt
   when: mount_mnt.rc != 0

@@ -1,8 +1,8 @@
 - name: sol validator setup
   become: true
   become_user: solana
-  template:
-    src: validator.j2
+  copy:
+    src: validator.sh
     dest: /home/solana/validator.sh
     owner: solana
     group: solana
@@ -11,7 +11,7 @@
 - name: setup sol.service
   become: true
   become_user: root
-  template:
+  copy:
     src: sol.service
     dest: /etc/systemd/system/sol.service
     owner: root
@@ -21,7 +21,7 @@
 - name: copy restart.sh
   become: true
   become_user: solana
-  template:
+  copy:
     src: restart.sh
     dest: /home/solana/restart.sh
     owner: solana
@@ -31,9 +31,9 @@
 - name: copy snapcheck.py
   become: true
   become_user: solana
-  template:
+  copy:
     src: snapcheck.py
-    dest: "{{ base_path }}/snapcheck.py"
+    dest: /mnt/snapcheck.py
     owner: solana
     group: solana
 
@@ -42,6 +42,6 @@
   become_user: solana
   template:
     src: snapshot-finder.py
-    dest: "{{ base_path }}/snapshot-finder.py"
+    dest: /mnt/snapshot-finder.py
     owner: solana
     group: solana

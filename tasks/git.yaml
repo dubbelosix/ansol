@@ -3,13 +3,13 @@
   become_user: solana
   git:
     repo: "https://github.com/solana-labs/solana.git"
-    dest: {{ base_path }}/solana
+    dest: /mnt/solana
     version: tags/v{{ solana_version }}
 
 - name: build solana
   become: true
   become_user: solana
-  shell: source /home/solana/.cargo/env && cargo build --release
+  shell: source /home/solana/.cargo/env && ./cargo build --release
   args:
-    chdir: {{ base_path }}/solana
+    chdir: /mnt/solana
     executable: /bin/bash

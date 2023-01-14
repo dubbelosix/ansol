@@ -57,12 +57,6 @@
   become_user: root
   shell: |
     echo 'GOVERNOR="performance"' | tee /etc/default/cpufrequtils
-    systemctl disable ondemand
+    echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
   args:
     executable: /bin/bash
-
-- name: Reboot host
-  become: true
-  become_user: root
-  reboot:
-    msg: Rebooting host...

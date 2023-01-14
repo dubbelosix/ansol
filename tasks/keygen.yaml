@@ -1,6 +1,6 @@
 - name: create identity key
   become: true
   become_user: solana
-  shell: /home/solana/.local/share/solana/install/active_release/bin/solana-keygen new --no-bip39-passphrase -o /home/solana/rpc_node.json
+  shell: /mnt/solana/target/release/solana-keygen new --no-bip39-passphrase -o /home/solana/rpc_node.json
   args:
     creates: /home/solana/rpc_node.json

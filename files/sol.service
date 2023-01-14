@@ -1,0 +1,17 @@
+[Unit]
+Description=Solana Validator
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=solana
+LimitNOFILE=1000000
+LogRateLimitIntervalSec=0
+Environment="PATH=/mnt/solana/target/release/:/home/solana/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/snap/bin:/home/solana/.local/bin/:/home/solana/.local/bin/:/home/solana/.local/bin/"
+ExecStart=/home/solana/validator.sh
+
+[Install]
+WantedBy=multi-user.target

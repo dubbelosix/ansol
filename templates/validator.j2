@@ -1,7 +1,0 @@
-#!/bin/bash
-PATH=/home/solana/.local/share/solana/install/active_release/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
-# export RUST_BACKTRACE=1
-# export RUST_LOG=error
-
-# Start solana rpc node, intended to be used with journalctl/systemctl. Logs will go to journalctl.
-exec solana-validator --identity /home/solana/rpc_node.json --rpc-port 8899 --full-rpc-api --entrypoint entrypoint.mainnet-beta.solana.com:8001 --limit-ledger-size --log {{ base_path }}/logs/solana-validator.log --accounts {{ base_path }}/solana-accounts --ledger {{ base_path }}/solana-ledger --snapshots {{ base_path }}/solana-snapshots --no-snapshot-fetch

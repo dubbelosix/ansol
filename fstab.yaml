@@ -3,5 +3,5 @@
     path: /etc/fstab
     state: present
     block: |
-      {{ base_path }}/swapfile swap swap defaults 0 0
-      /dev/md0 {{ base_path }} ext4 defaults,nofail,discard 0 0
+      /dev/md0 /mnt ext4 defaults,nofail,discard 0 0
+      /mnt/swapfile swap swap defaults 0 0

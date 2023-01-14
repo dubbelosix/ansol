@@ -16,7 +16,7 @@
   blockinfile:
     path: /etc/logrotate.d/sol
     block: |
-      {{ base_path }}/logs/solana-validator.log {
+      /mnt/logs/solana-validator.log {
         rotate 7
         daily
         missingok

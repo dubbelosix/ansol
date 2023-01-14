@@ -10,4 +10,4 @@
 - name: download latest snapshot
   become: true
   become_user: solana
-  shell: python3 {{ base_path }}/snapshot-finder.py --snapshot_path {{ base_path }}/solana-snapshots --version {{ solana_version }}
+  shell: python3 /mnt/snapshot-finder.py --snapshot_path /mnt/solana-snapshots
