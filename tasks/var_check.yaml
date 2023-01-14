@@ -11,3 +11,9 @@
   with_items:
     - "{{ raw_disk_list }}"
   when: setup_disks is defined and (setup_disks | bool)
+
+- name: validate some variables
+  assert:
+    that:
+      - ((ramdisk_size is defined) and (ansible_memtotal_mb >= 1500*ramdisk_size) or ramdisk_size is not defined)
+    msg: machine ram is too low for ram diskq. comment out ramdisk_size in defaults/main.yml
