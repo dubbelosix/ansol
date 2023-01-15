@@ -28,12 +28,12 @@
     group: solana
     mode: "0755"
     
-- name: copy restart.sh
+- name: copy download_start.sh
   become: true
   become_user: solana
   copy:
-    src: download_restart.sh
-    dest: /home/solana/download_restart.sh
+    src: download_start.sh
+    dest: /home/solana/download_start.sh
     owner: solana
     group: solana
     mode: "0755"
