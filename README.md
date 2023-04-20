@@ -64,7 +64,7 @@ time ansible-playbook runner.yaml
 
 - solana_version: the version of solana that we want to run. Check the Solana Tech discord’s mb-announcements channel for the recommended version.
 - swap_mb: megabytes of swap. This can be set this to 50% of RAM or even lower. 100 GB is fine on a 512 GB RAM machine (variable value is in MB so 100000)
-- raw_disk_list: the list of currently unmounted disks that will be wiped, raided, formatted with ext4 and then mounted to /mnt
+- ledger_disk: the disk that will be wiped, formatted with ext4 and then mounted to /mnt/solana-ledger
 - ramdisk_size: this is optional and only necessary if you want to use ramdisk for the validator - carves out a large portion of the RAM to store the accountsdb. On a 512 GB RAM instance, this can be set to 300 GB (variable value is in GB so 300)
 - solana_installer: whether to install solana from the installer. If set to false it will build solana cli from the solana github
 

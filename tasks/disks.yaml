@@ -1,68 +1,26 @@
-- name: install mdadm
-  become: true
-  become_user: root
-  apt:
-    update_cache: yes
-    pkg:
-      - mdadm
-
-- name: check raid already exists
-  become: true
-  become_user: root
-  shell: fdisk -l | grep -e 'md'
-  ignore_errors: yes
-  register: raid_exists
-
-- name: wipe disks
-  become: true
-  become_user: root
-  shell: sfdisk --delete {{ item }}
-  with_items:
-    - "{{ raw_disk_list }}"
-  ignore_errors: yes
-  when: raid_exists.rc != 0
-
-- name: raid raw disks
-  become: true
-  become_user: root
-  shell: echo y | mdadm --create /dev/md0 --level=0 --raid-devices={{ raw_disk_list|length }} {{ raw_disk_list | join(' ') }}
-  when: raid_exists.rc != 0
-
-- name: get raid device name
-  become: true
-  become_user: root
-  shell: cat /proc/mdstat | grep md | awk '{print $1}'
-  register: raid_name
-
 - name: check mount
   become: true
   become_user: root
-  shell: df -h | grep mnt
+  shell: df -h | grep mnt/solana-ledger
   ignore_errors: yes
   register: mount_mnt
 
 - name: format disks with ext4
   become: true
   become_user: root
-  shell: mkfs.ext4 /dev/{{ raid_name.stdout }}
-  when: raid_name.rc == 0 and mount_mnt.rc != 0
+  shell: mkfs.ext4 /dev/{{ ledger_disk }}
+  when: mount_mnt.rc != 0
 
-- name: mount disks
+- name: mount disks for ledger
   become: true
   become_user: root
-  shell: mount /dev/{{ raid_name.stdout }} /mnt
+  shell: mount /dev/{{ ledger_disk }} /mnt/solana-ledger && chown -R solana:solana /mnt/solana-ledger
   when: mount_mnt.rc != 0
-  
-- name: extract raid params
-  shell: sudo blkid | grep md | grep -oh \".*\" | sed -e 's/"//g' | awk '{print "UUID="$1" /mnt ext4 defaults 1 1"}'
-  register: raid_config
-  
-- name: add raid to fstab
+
+- name: add mounted disk to fstab
   become: true
   become_user: root
   lineinfile:
     dest: /etc/fstab
     state: present
-    line: "{{ raid_config.stdout_lines[0] }}"
-    insertbefore: 'mnt'
-    firstmatch: yes
+    line: "/dev/{{ ledger_disk }}    /mnt/solana-ledger    ext4    defaults    0    1"

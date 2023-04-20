@@ -3,10 +3,6 @@
 - name: var check
   include_tasks: var_check.yaml
 
-- name: setup disks
-  include_tasks: disks.yaml
-  when: setup_disks|default(false)|bool == true
-
 - name: create user
   include_tasks: user.yaml
 
@@ -22,6 +18,10 @@
 - name: ramdisk
   include_tasks: ramdisk.yaml
   when: ramdisk_size is defined
+
+- name: setup disks
+  include_tasks: disks.yaml
+  when: setup_disks|default(false)|bool == true
 
 - name: logrotate
   include_tasks: rotate.yaml

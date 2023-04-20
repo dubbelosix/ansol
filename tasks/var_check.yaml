@@ -7,9 +7,7 @@
 - name: check disks exist
   become: true
   become_user: root
-  shell: fdisk -l | grep 'Disk {{ item }}'
-  with_items:
-    - "{{ raw_disk_list }}"
+  shell: fdisk -l | grep 'Disk {{ ledger_disk }}'
   when: setup_disks is defined and (setup_disks | bool)
 
 - name: validate some variables
